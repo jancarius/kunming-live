@@ -1,0 +1,206 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/admin.master" AutoEventWireup="true" CodeFile="mailbox.aspx.cs" Inherits="mailbox" %>
+
+<%@ Register TagPrefix="hwa" TagName="WYSIHTML5" Src="~/controls/WYSIHTML5.ascx" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
+    <section class="content-header">
+        <h1>
+            <div class="box box-success">
+                <div class="box-body">
+                    Mailbox
+                    <small id="showNewMessages" runat="server">13 new messages</small>
+                </div>
+            </div>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="/"><i class="fa fa-dashboard"></i>Control Tower</a></li>
+            <li class="active">Mailbox</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                <button id="btnComposeMessage" type="button" class="btn btn-block btn-success margin-bottom">Compose</button>
+
+                <div id="boxMailboxFolders" class="box box-solid" runat="server">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Folders</h3>
+
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="box-body no-padding">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active"><a href="#"><i class="fa fa-inbox"></i>Inbox<span id="showInboxNewMessages" class="label label-success pull-right" runat="server">0</span></a></li>
+                            <li><a href="#"><i class="fa fa-envelope-o"></i>Sent<span id="showSentMessages" class="label label-primary pull-right" runat="server">0</span></a></li>
+                            <li><a href="#"><i class="fa fa-file-text-o"></i>Drafts<span id="showDraftsMessages" class="label label-danger pull-right" runat="server">0</span></a></li>
+                            <li><a href="#"><i class="fa fa-trash-o"></i>Trash<span id="showTrashMessages" class="label label-default pull-right" runat="server">0</span></a></li>
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /. box -->
+            </div>
+            <!-- /.col -->
+
+            <div class="col-md-9">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><span id="lblReturnToFolder" class="hidden clickable" data-panel_id=""><i class="fa fa-angle-left"></i>&nbsp;</span><span id="lblFolderName">Inbox</span></h3>
+
+                        <div class="box-tools pull-right">
+                            <div class="has-feedback">
+                                <input type="text" class="form-control input-sm" placeholder="Search Mail">
+                                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                            </div>
+                        </div>
+                        <!-- /.box-tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                                <i class="fa fa-square-o"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                            <div class="pull-right">
+                                <span id="showTotalMessagesTop" runat="server"></span>
+                 
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                                </div>
+                                <!-- /.btn-group -->
+                            </div>
+                            <!-- /.pull-right -->
+                        </div>
+                        <div id="pnlInboxView" class="table-responsive mailbox-messages" data-folder_id="0">
+                            <table id="tblInboxMessages" class="table table-hover table-striped">
+                                <tbody id="tblInboxBody" data-folder="0" runat="server">
+                                </tbody>
+                            </table>
+                            <!-- /.table -->
+                        </div>
+                        <!-- /.mail-box-messages -->
+                        <div id="pnlSentView" class="table-responsive mailbox-messages" data-folder_id="1" style="display:none;">
+                            <table id="tblSentMessages" class="table table-hover table-striped">
+                                <tbody id="tblSentBody" data-folder="0" runat="server">
+                                </tbody>
+                            </table>
+                            <!-- /.table -->
+                        </div>
+                        <!-- /.mail-box-messages -->
+                        <div id="pnlDraftsView" class="table-responsive mailbox-messages" data-folder_id="2" style="display:none;">
+                            <table id="tblDraftsMessages" class="table table-hover table-striped">
+                                <tbody id="tblDraftsBody" data-folder="0" runat="server">
+                                </tbody>
+                            </table>
+                            <!-- /.table -->
+                        </div>
+                        <!-- /.mail-box-messages -->
+                        <div id="pnlTrashView" class="table-responsive mailbox-messages" data-folder_id="3" style="display:none;">
+                            <table id="tblTrashMessages" class="table table-hover table-striped">
+                                <tbody id="tblTrashBody" data-folder="0" runat="server">
+                                </tbody>
+                            </table>
+                            <!-- /.table -->
+                        </div>
+                        <!-- /.mail-box-messages -->
+                        <div id="pnlMailView" class="mailbox-messages" style="display:none;">
+                            <table class="table table-hover table-striped">
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                            <div id="pnlMailViewReply" class="col-xs-12">
+                                <h4>Reply:</h4>
+                                <hwa:WYSIHTML5 ID="wysihtml5Reply" ToolbarID="replyToolbar" TextareaID="replyTextarea" runat="server" />
+                                <button id="btnSubmitReply" type="button" class="btn btn-sm btn-flat btn-success pull-right">Reply</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer no-padding">
+                        <div class="mailbox-controls">
+                            <!-- Check all button -->
+                            <button type="button" class="btn btn-default btn-sm checkbox-toggle">
+                                <i class="fa fa-square-o"></i>
+                            </button>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-trash-o"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i></button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
+                            </div>
+                            <!-- /.btn-group -->
+                            <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+                            <div class="pull-right">
+                                <span id="showTotalMessagesBottom" runat="server"></span>
+                 
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
+                                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
+                                </div>
+                                <!-- /.btn-group -->
+                            </div>
+                            <!-- /.pull-right -->
+                        </div>
+                    </div>
+                </div>
+                <!-- /. box -->
+            </div>
+
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+    <!-- Compose PM Modal -->
+    <div class="modal fade in" id="modalComposePM">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Compose a New Private Message</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="lblComposeError" class="control-label text-yellow text-bold collapse" style="margin-top: -20px;"><i class="fa fa-times-circle-o"></i>&nbsp;<span id="lblComposeErrorText"></span></div>
+                    <div class="form-group">
+                        <input id="txtComposeTo" type="text" placeholder="To:" />
+                    </div>
+                    <div class="form-group">
+                        <input id="txtComposeSubject" class="form-control" placeholder="Subject:">
+                    </div>
+                    <div class="form-group">
+                        <hwa:WYSIHTML5 ID="wysihtml5Compose" ToolbarID="composeToolbar" TextareaID="composeTextarea" runat="server" />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCancelComposePM" type="button" class="btn btn-default pull-left" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;Cancel</button>
+                    <button id="btnSaveComposePM" type="button" class="btn btn-primary"><i class="fa fa-pencil"></i>&nbsp;Draft</button>
+                    <button id="btnSendComposePM" type="button" class="btn btn-success"><i class="fa fa-envelope"></i>&nbsp;Send</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="foot" runat="Server">
+    <script src="dist/js/mailbox.js"></script>
+</asp:Content>

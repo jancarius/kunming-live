@@ -1,0 +1,145 @@
+[
+  {
+    "outputFileName": "dist/fonts/fonts.min.css",
+    "inputFiles": [
+      "dist/fonts/fonts.css"
+    ]
+  },
+  {
+    "outputFileName": "dist/js/file-upload.min.js",
+    "inputFiles": [
+      "dist/js/file-upload.js"
+    ]
+  },
+  {
+    "outputFileName": "dist/css/col-xl.min.css",
+    "inputFiles": [
+      "dist/css/col-xl.css"
+    ]
+  },
+  {
+    "outputFileName": "dist/css/style.min.css",
+    "inputFiles": [
+      "dist/css/style.css"
+    ]
+  },
+  {
+    "outputFileName": "plugins/bootstrap-wysihtml5/advanced.min.js",
+    "inputFiles": [
+      "plugins/bootstrap-wysihtml5/advanced.js"
+    ]
+  },
+  {
+    "outputFileName": "plugins/bootstrap-wysihtml5/wysihtml5-advanced-bundle.all.js",
+    "inputFiles": [
+      "plugins/bootstrap-wysihtml5/advanced.min.js",
+      "plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"
+    ]
+  },
+  {
+    "outputFileName": "dist/js/admin.min.js",
+    "inputFiles": [
+      "dist/js/admin.js"
+    ]
+  },
+  {
+    "outputFileName": "dist/js/businesses.min.js",
+    "inputFiles": [
+      "dist/js/businesses.js"
+    ]
+  },
+  {
+    "outputFileName": "dist/js/classifieds.min.js",
+    "inputFiles": [
+      "dist/js/classifieds.js"
+    ]
+  },
+  {
+    "outputFileName": "dist/js/controltower.min.js",
+    "inputFiles": [
+      "dist/js/controltower.js"
+    ]
+  },
+  {
+    "outputFileName": "dist/js/eventscalendar.min.js",
+    "inputFiles": [
+      "dist/js/eventscalendar.js"
+    ]
+  },
+  {
+    "outputFileName": "plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css",
+    "inputFiles": [
+      "plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css"
+    ]
+  },
+  {
+    "outputFileName": "dist/js/textext.bundle.js",
+    "inputFiles": [
+      "dist/js/textext.core.js",
+      "dist/js/textext.plugin.autocomplete.js",
+      "dist/js/textext.plugin.filter.js",
+      "dist/js/textext.plugin.suggestions.js",
+      "dist/js/textext.plugin.tags.js"
+    ]
+  },
+  {
+    "outputFileName": "dist/css/textext.bundle.css",
+    "inputFiles": [
+      "dist/css/textext.core.css",
+      "dist/css/textext.plugin.autocomplete.css",
+      "dist/css/textext.plugin.tags.css"
+    ]
+  },
+  {
+    "outputFileName": "dist/css/textext.bundle.min.css",
+    "inputFiles": [
+      "dist/css/textext.plugin.clear.css",
+      "dist/css/textext.bundle.min.css"
+    ]
+  },
+  {
+    "outputFileName": "dist/js/textext.bundle.min.js",
+    "inputFiles": [
+      "dist/js/textext.plugin.clear.js",
+      "dist/js/textext.bundle.min.js"
+    ]
+  },
+  {
+    "outputFileName": "dist/css/tagify.min.css",
+    "inputFiles": [
+      "dist/css/tagify.css"
+    ]
+  },
+  {
+    "outputFileName": "plugins/bootstrap-wysihtml5/small-wysihtml5-advanced-bundle.all.min.js",
+    "inputFiles": [
+      "plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js",
+      "plugins/bootstrap-wysihtml5/advanced.js"
+    ]
+  },
+  {
+    "outputFileName": "plugins/bootstrap-wysihtml5/advanced-wysihtml5.bundle.js",
+    "inputFiles": [
+      "plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js",
+      "plugins/bootstrap-wysihtml5/advanced.js"
+    ]
+  },
+  {
+    "outputFileName": "bower_components/jquery-mobile/jquery.mobile.custom.min.min.js",
+    "inputFiles": [
+      "bower_components/jquery-mobile/jquery.mobile.custom.min.js"
+    ]
+  },
+  {
+    "outputFileName": "bower_components/jquery-mobile/jquery.mobile.custom.min.js",
+    "inputFiles": [
+      "bower_components/jquery-mobile/jquery.mobile.custom.js"
+    ]
+  },
+  {
+    "outputFileName": "dist/js/touchpunch.min.js",
+    "inputFiles": [
+      "dist/js/touchpunch.js"
+    ]
+  }
+]

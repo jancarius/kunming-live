@@ -1,0 +1,374 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="admin.master" AutoEventWireup="true" CodeFile="profile.aspx.cs" Inherits="profile" %>
+<%@ MasterType VirtualPath="~/admin.master" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <!-- Cropper -->
+    <link rel="stylesheet" href="dist/css/cropper.min.css" />
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <div class="box box-success">
+                <div class="box-body">
+                    User Profile
+                    <small>
+                        Settings
+                    </small>
+                </div>
+            </div>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="controltower.aspx"><i class="fa fa-dashboard"></i>Control Tower</a></li>
+            <li class="active">User profile</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xl-3 col-md-5">
+                <!-- Profile Image -->
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            User Info
+                        </h3>
+                        <div class="box-tools pull-right">
+                            <button id="btnSaveProfile" type="button" class="btn btn-success btn-xs btn-flat hidden">Save</button>
+                            <button id="btnCancelProfile" type="button" class="btn btn-warning btn-xs btn-flat hidden">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="box-body box-profile">
+                        <asp:Image ID="imgProfileUpdate" ImageUrl="dist/img/male_placeholder.png" CssClass="profile-user-img img-responsive img-circle" AlternateText="User Profile Picture" runat="server" ClientIDMode="Static" />
+                        <label id="uploadImage" class="file-upload btn btn-primary hidden" style="margin: 10px auto 0 auto; display: block;">
+                            Change Profile Image
+                            <input id="fileProfileImage" type="file" accept="image/*" class="form-control hidden" />
+                        </label>
+                        <h3 class="profile-username text-center">
+                            <strong id="btnEditProfile" class="fa fa-pencil-square-o" aria-hidden="true"> Edit Profile</strong>
+                        </h3>
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <div class="col-xs-4 no-padding"><b>Full Name</b></div>
+                                <div class="col-xs-8 no-padding">
+                                    <div id="lblFullName" runat="server"></div>
+                                    <input id="txtFullName" type="text" class="form-control hidden" data-toggle="tooltip" data-original-title="Full Name Can Only Be Changed Once!" data-trigger="focus" />
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="col-xs-4 no-padding"><b>Email</b></div>
+                                <div class="col-xs-8 no-padding">
+                                    <div id="lblEmail" runat="server"></div>
+                                    <input id="txtEmail" type="email" class="form-control hidden" data-toggle="tooltip" data-original-title="Email Changes Must Be Confirmed via Email" data-trigger="focus" />
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="col-xs-4 no-padding"><b>Location</b></div>
+                                <div class="col-xs-8 no-padding">
+                                    <div id="lblLocation" runat="server"></div>
+                                    <input id="txtLocation" type="text" class="form-control hidden" />
+                                </div>
+
+                            </li>
+                            <li class="list-group-item">
+                                <div class="col-xs-4 no-padding"><b>About Me</b></div>
+                                <div class="col-xs-8 no-padding">
+                                    <div id="lblDescription" runat="server"></div>
+                                    <textarea id="txtDescription" rows="4" class="form-control hidden"></textarea>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+                
+            </div>
+
+            <div id="boxEditBoxStates" class="col-xl-5 col-md-7" runat="server">
+                <div class="box box-success">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">
+                            Collapsed/Closed Panels
+                        </h3>
+                    </div>
+                    <div class="box-body">
+                        <table class="table">
+                            <tbody id="tblEditBoxStates" runat="server">
+                                <tr class="table-header">
+                                    <th class="col-xs-5">Box Title</th>
+                                    <th class="col-xs-4">Page</th>
+                                    <th class="col-xs-2">State</th>
+                                    <th class="col-xs-1"></th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Profile Image Modal -->
+        <div class="modal fade in" id="modalProfileImage">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title">Crop Profile Image</h4>
+                    </div>
+                    <div class="modal-body">
+                        <img id="imgCropper" src="" style="max-width: 100%;" />
+                        <div class="box-body croppie-container"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnCancelCrop" type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+                        <button id="btnSaveCrop" type="button" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </section>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="foot" runat="Server">
+    <!-- Cropper -->
+    <script src="dist/js/cropper.min.js"></script>
+    <!-- File Upload -->
+    <script src="dist/js/file-upload.min.js"></script>
+    <script>
+        $("#fileProfileImage").file_upload();
+        $('#modalProfileImage').modal({
+            show: false,
+            backdrop: "static",
+            keyboard: false
+        });
+
+        $.fn.cropper.setDefaults({
+            viewMode: 1,
+            minContainerWidth: 200,
+            minContainerHeight: 200,
+            minCanvasWidth: 200,
+            minCanvasHeight: 200,
+            minCropBoxWidth: 128,
+            minCropBoxHeight: 128
+        });
+
+        var fields = {
+            FullName: {
+                input: "txtFullName",
+                label: "lblFullName",
+                changed: false
+            },
+            Email: {
+                input: "txtEmail",
+                label: "lblEmail",
+                changed: false
+            },
+            Location: {
+                input: "txtLocation",
+                label: "lblLocation",
+                changed: false
+            },
+            Description: {
+                input: "txtDescription",
+                label: "lblDescription",
+                changed: false
+            },
+            ProfileImage: {
+                input: "fileProfileImage",
+                value: "",
+                changed: false
+            }
+        }
+
+        $("#btnEditProfile").click(function () {
+            $("#btnEditProfile").addClass("hidden");
+            $("#btnSaveProfile").removeClass("hidden");
+            $("#btnCancelProfile").removeClass("hidden");
+
+            for (var property in fields) {
+                if (User.FullNameChanged) {
+                    if (property == "FullName") {
+                        continue;
+                    }
+                }
+                $("#" + fields[property].input).val($("#" + fields[property].label).html());
+                $("#" + fields[property].label).addClass("hidden");
+                $("#" + fields[property].input).removeClass("hidden");
+            }
+
+            $("#uploadImage").removeClass("hidden");
+        });
+
+        $("#btnCancelProfile").click(function () {
+            $("#btnEditProfile").removeClass("hidden");
+            $("#btnSaveProfile").addClass("hidden");
+            $("#btnCancelProfile").addClass("hidden");
+            $("#uploadImage").removeClass("btn-success");
+            $("#uploadImage").removeClass("btn-primary");
+            $("#uploadImage").addClass("btn-primary");
+
+            fields.ProfileImage.value = "";
+
+            for (var property in fields) {
+                if (User.FullNameChanged) {
+                    if (property == "FullName") {
+                        continue;
+                    }
+                }
+                $("#" + fields[property].input).addClass("hidden");
+                $("#" + fields[property].label).removeClass("hidden");
+            }
+
+            $("#uploadImage").addClass("hidden");
+            $("#fileProfileImage").val("");
+        });
+
+        $("#btnSaveProfile").click(function () {
+            $(".loading-overlay").show();
+            for (var property in fields) {
+                if (property == "ProfileImage") { continue; }
+                fields[property].value = $("#" + fields[property].input).val();
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "profile.aspx/UpdateProfile",//"profile.aspx?action=updateProfile",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({
+                    fullName: fields.FullName.value,
+                    email: fields.Email.value,
+                    location: fields.Location.value,
+                    description: fields.Description.value,
+                    profileImage: fields.ProfileImage.value
+                }),
+                async: true,
+                cache: false,
+                success: function (msg) {
+                    $("#btnSaveProfile").addClass("hidden");
+                    $("#btnCancelProfile").addClass("hidden");
+                    $("#btnEditProfile").removeClass("hidden");
+
+                    $("#lblFullName").text(msg.d.FullName);
+                    $("#lblEmail").text(msg.d.Email);
+                    $("#lblLocation").text(msg.d.Location);
+                    $("#lblDescription").text(msg.d.Description);
+                    $("#lblUsernameSidebar").html(msg.d.FullName);
+                    $("#lblUsernameTopbar").html(msg.d.FullName);
+                    $("#imgProfile").attr("src", msg.d.Avatar);
+                    $("#imgCollapsedProfileImage").attr("src", msg.d.Avatar);
+                    $("#imgNavbarProfileImage").attr("src", msg.d.Avatar);
+                    $("#imgSidebarProfileImage").attr("src", msg.d.Avatar);
+                    $("#imgProfileUpdate").attr("src", msg.d.Avatar);
+                    $("#uploadImage").addClass("btn-primary");
+                    $("#uploadImage").removeClass("btn-success");
+                    $("#uploadImage").addClass("hidden");
+                    $("#fileProfileImage").val("");
+
+                    for (var property in fields) {
+                        if (User.FullNameChanged) {
+                            if (property == "FullName") {
+                                continue;
+                            }
+                        }
+                        $("#" + fields[property].input).addClass("hidden");
+                        $("#" + fields[property].label).removeClass("hidden");
+                    }
+
+                    console.log(msg);
+                    $(".loading-overlay").hide();
+                },
+                error: function (msg) {
+                    alert("Failed to Update Profile");
+                    console.log(msg);
+                    $(".loading-overlay").hide();
+                }
+            });
+        });
+
+        $("#fileProfileImage").on("change", function () {
+            $(".loading-overlay").show();
+            $("#modalProfileImage").modal({
+                show: true,
+                backdrop: "static",
+                keyboard: false
+            });
+            readFile(this.files[0], function (imgFile) {
+                $("#imgCropper").attr("src", imgFile);
+                $(".loading-overlay").hide();
+            });
+        });
+
+        $("#modalProfileImage").on("shown.bs.modal", function () {
+            $("#imgCropper").cropper({
+                aspectRatio: 1 / 1,
+                ready: function () {
+                    $(this).cropper("crop");
+                }
+            });
+        }).on("hidden.bs.modal", function () {
+            $("#imgCropper").cropper("destroy");
+            $("#fileProfileImage").val("");
+        });
+
+        $("#btnSaveCrop").click(function () {
+            $(".loading-overlay").show();
+            var croppedImage = $("#imgCropper").cropper("getCroppedCanvas", {
+                width: 128,
+                height: 128,
+            });
+
+            var base64 = $("#imgCropper").attr("src");
+            var imgExt = base64.substring(base64.indexOf("/") + 1, base64.indexOf(";"));
+            if (!["jpeg", "jpg", "gif", "png"].includes(imgExt)) {
+                $(".loading-overlay").hide();
+                showWarning("Only JPEG, PNG, or GIF Allowed!");
+                return;
+            }
+            base64 = croppedImage.toDataURL("image/" + imgExt, 0.5);
+
+            fields.ProfileImage.value = base64;
+
+            $("#uploadImage").removeClass("btn-primary");
+            $("#uploadImage").removeClass("btn-success");
+            $("#uploadImage").addClass("btn-success");
+            $("#modalProfileImage").modal("hide");
+            $(".loading-overlay").hide();
+        });
+
+        $(".undo-box-state").click(function () {
+            $(".loading-overlay").show();
+            $.ajax({
+                type: "POST",
+                url: "profile.aspx/UndoCustomBoxState",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify({
+                    customBoxStateId: $(this).attr("data-box-state-id")
+                }),
+                success: function (msg) {
+                    var customBoxStateId = $("[data-box-state-id='" + msg.d + "']");
+                    if (customBoxStateId.length > 0) {
+                        customBoxStateId.closest("tr").remove();
+                        if ($("#tblEditBoxStates tr").length == 1) {
+                            $("#boxEditBoxStates").remove();
+                        }
+                    } else {
+                        alert("Failed to Find Custom Box State ID (Check Console)");
+                        console.log(msg);
+                    }
+                    $(".loading-overlay").hide();
+                },
+                error: function (msg) {
+                    alert("Failed to Find Custom Box State ID (Check Console)");
+                    console.log(msg);
+                    $(".loading-overlay").hide();
+                }
+            })
+        });
+    </script>
+</asp:Content>

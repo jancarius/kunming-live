@@ -1,0 +1,819 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="admin.master.cs" Inherits="admin" %>
+
+<%@ Register TagPrefix="kl" TagName="AdminModals" Src="~/controls/AdminModals.ascx" %>
+<%@ Register TagPrefix="kl" TagName="UserInfo" Src="~/controls/UserInfo.ascx" %>
+<%@ Register TagPrefix="kl" TagName="Forecast" Src="~/controls/Forecast.ascx" %>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="Kunming LIVE! is your go-to resource for the best things to do, people to meet, and information to know so that your time in the city is as enjoyable as possible. You will find reviews to local restaurants and other businesses, as well as tips and tricks for staying out of trouble." />
+
+    <title>Kunming LIVE! | The Next Big Thing in China</title>
+
+    <link rel="canonical" href="https://www.kunminglive.com/">
+    <!-- Boostrap 3.3.7 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <!-- col-xl Extension -->
+    <link rel="stylesheet" href="https://www.kunminglive.com/dist/css/col-xl.min.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="https://www.kunminglive.com/dist/css/AdminLTE.min.css" />
+    <!-- Custom style -->
+    <link rel="stylesheet" href="https://www.kunminglive.com/dist/css/style.css" />
+    <!-- Skin style -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.3/css/skins/skin-green.min.css" />
+    <!-- TagsInput style -->
+    <link rel="stylesheet" href="https://www.kunminglive.com/dist/css/tagify.min.css" />
+    <!-- iCheck -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/skins/square/green.css" />
+    <!-- Date Picker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+    <!-- WYSIHTML5 -->
+    <link rel="stylesheet" href="https://www.kunminglive.com/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.css" />
+    <!-- Full Calendar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css" />
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" />
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#00a65a" />
+    <meta name="apple-mobile-web-app-title" content="Kunming LIVE!" />
+    <meta name="application-name" content="Kunming LIVE!" />
+    <meta name="msapplication-TileColor" content="#ff0000" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116233403-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-116233403-1');
+    </script>
+
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery 3 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Facebook Login -->
+    <!--<script src="https://sdk.accountkit.com/en_US/sdk.js"></script>-->
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body id="AdminBody" class="hold-transition skin-green sidebar-mini" runat="server">
+    <script>
+        if (typeof FB !== 'undefined') {
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '421324431621180',
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v2.12'
+                });
+                FB.AppEvents.logPageView();
+            };
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        }
+    </script>
+    <div class="wrapper">
+        <form id="frmAdmin" runat="server" style="margin: 0;">
+            <!-- Main Header -->
+            <header class="main-header">
+
+                <!-- Logo -->
+                <a href="/" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b>K</b>L!</span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg">Kunming <b>LIVE!</b></span>
+                </a>
+
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a id="btnSidebarToggle" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            <!-- Weather Menu -->
+                            <li class="dropdown tasks-menu weather-menu">
+                                <!-- Menu Toggle Button -->
+                                <a id="btnWeatherMenu" class="dropdown-toggle" data-toggle="tooltip" data-placement="bottom" data-original-title="Current Weather" style="padding: 14px 3px;">
+                                    <span id="currentWeatherIcon" runat="server"></span>
+                                    <span id="lblWeatherNowTemperatureOuterC" class="hidden-xs" runat="server"></span>
+                                    <span id="lblWeatherNowTemperatureOuterF" class="hidden-xs" runat="server"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="header">
+                                        <div class="box-tools pull-right">
+                                            <button type="button" class="btn btn-xs btn-default show-forecast-c active" data-toggle="tooltip" data-original-title="Metric">C&deg;</button>
+                                            <button type="button" class="btn btn-xs btn-default show-forecast-f" data-toggle="tooltip" data-original-title="Imperial">F&deg;</button>
+                                        </div>
+                                        <div class="box-tools pull-left">
+                                            <button type="button" class="btn btn-xs btn-default show-forecast-hourly active" data-toggle="tooltip" data-original-title="Hourly Forecast">Hour</button>
+                                            <button type="button" class="btn btn-xs btn-default show-forecast-daily" data-toggle="tooltip" data-original-title="Daily Forecast">Day</button>
+                                        </div>
+                                        <div id="ddlWeatherDescription" class="text-center" runat="server"></div>
+                                    </li>
+                                    <li>
+                                        <ul class="menu">
+                                            <li>
+                                                <kl:forecast id="navbarForecast" compact="true" runat="server" />
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="footer">
+                                        <a href="https://www.kunminglive.com/weather-trends">View Weather Trends</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- Messages: style can be found in dropdown.less-->
+                            <li class="dropdown messages-menu">
+                                <!-- Menu toggle button -->
+                                <a id="btnMessagesMenu" class="dropdown-toggle" data-toggle="tooltip" data-placement="bottom" data-original-title="Private Messages">
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span id="lblMessagesCount" runat="server" class="label label-warning"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="header">You have <span id="lblMessagesMenuCount" runat="server">0</span> unread messages</li>
+                                    <li>
+                                        <ul id="pnlMessagesList" runat="server" class="menu">
+                                            <li>
+                                                <h4 class="text-center text-italic">Sign in to Receive Private Messages</h4>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="footer">
+                                        <button id="btnShowCreateConversation" type="button" runat="server" visible="false" class="btn btn-sm btn-block btn success">Create Conversation</button></li>
+                                </ul>
+                            </li>
+                            <!-- /.messages-menu -->
+
+                            <!-- Notifications Menu -->
+                            <li class="dropdown notifications-menu">
+                                <!-- Menu toggle button -->
+                                <a id="btnNotificationMenu" class="dropdown-toggle" data-toggle="tooltip" data-placement="bottom" data-original-title="Notifications">
+                                    <i class="fa fa-bell-o"></i>
+                                    <span id="lblNotificationCount" runat="server" class="label label-danger"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="header">You have <span id="lblYouHaveNotificationCount" runat="server">0</span> notifications</li>
+                                    <li>
+                                        <ul id="pnlNotificationList" runat="server" class="menu">
+                                            <li>
+                                                <a style="cursor: default;">
+                                                    <i class='fa fa-check text-black'></i>Sign in to Receive Notifications
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="footer"><a style="cursor: default;"></a></li>
+                                </ul>
+                            </li>
+                            <!-- Tasks Menu -->
+                            <li class="dropdown tasks-menu">
+                                <!-- Menu Toggle Button -->
+                                <a id="btnTasksMenu" class="dropdown-toggle" data-toggle="tooltip" data-placement="bottom" data-original-title="Saved Items">
+                                    <i class="fa fa-flag-o"></i>
+                                    <span id="lblTasksCount" runat="server" class="label label-info"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="header">You have <span id="lblTasksInnerCount" runat="server">0</span> saved items</li>
+                                    <li>
+                                        <ul id="pnlTasksList" runat="server" class="menu">
+                                            <li>
+                                                <a style="cursor: default;">
+                                                    <i class="fa fa-check text-black"></i>&nbsp;Sign In to Save Items
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="footer">
+                                        <a style="cursor: default;"></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- User Account Menu -->
+                            <li class="dropdown user user-menu">
+                                <!-- Menu Toggle Button -->
+                                <a id="btnUserMenu" class="dropdown-toggle">
+                                    <!-- The user image in the navbar-->
+                                    <asp:Image ID="imgCollapsedProfileImage" ImageUrl="dist/img/male_placeholder.png" CssClass="user-image" AlternateText="User Image" runat="server" />
+                                    <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                    <span class="hidden-xs">
+                                        <asp:Label ID="lblUsernameTopbar" runat="server">Guest</asp:Label></span>
+                                </a>
+                                <ul id="lvNotLoggedIn" runat="server" class="dropdown-menu">
+                                    <li class="user-header">
+                                        <div id="frmRegister" style="display: none;">
+                                            <p class="login-box-msg">Register a New Membership</p>
+                                            <div id="lblRegisterError" class="control-label text-yellow text-bold collapse" style="margin-top: -20px;"><i class="fa fa-times-circle-o"></i>&nbsp;<span id="lblRegisterErrorText"></span></div>
+                                            <div class="form-group has-feedback">
+                                                <input id="txtUsername" name="username" type="text" class="form-control" placeholder="Username" tabindex="10">
+                                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <input id="txtEmail" type="email" class="form-control" placeholder="Email" tabindex="11" autocomplete="off">
+                                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <input id="txtPassword" type="password" class="form-control" placeholder="Password" tabindex="12">
+                                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <input id="txtConfirmPassword" type="password" class="form-control" placeholder="Retype password" tabindex="13">
+                                                <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+                                            </div>
+                                            <div class="checkbox icheck">
+                                                <label for="chkAgreeTerms">
+                                                    <input id="chkAgreeTerms" type="checkbox" tabindex="14">
+                                                    I agree to the <a href="https://www.kunminglive.com/terms-of-service" target="_blank">terms</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div id="frmSignin">
+                                            <p class="login-box-msg">Sign in to start your session</p>
+                                            <div id="lblLoginError" class="control-label text-yellow text-bold collapse" style="margin-top: -20px;"><i class="fa fa-times-circle-o"></i>&nbsp;<span id="lblLoginErrorText"></span></div>
+                                            <div class="form-group has-feedback">
+                                                <input id="txtUsernameLogin" type="text" class="form-control" placeholder="Username" tabindex="1" />
+                                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <input id="txtPasswordLogin" type="password" class="form-control" placeholder="Password" tabindex="2" />
+                                                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                            </div>
+                                            <div class="checkbox icheck pull-left no-margin">
+                                                <label for="chkRememberMe">
+                                                    <input id="chkRememberMe" type="checkbox" tabindex="3" />
+                                                    Remember Me
+                                                </label>
+                                            </div>
+                                            <div class="pull-right">
+                                                <a id="btnForgotSignin">Forgot?</a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div id="frmForgotSignin" style="display:none;">
+                                            <p class="login-box-msg">Forgot Login? Provide Username OR Email</p>
+                                            <div class="form-group has-feedback">
+                                                <input id="txtUsernameForgot" type="text" class="form-control" placeholder="Username" tabindex="1" />
+                                                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                                            </div>
+                                            <div class="form-group has-feedback">
+                                                <input id="txtEmailForgot" type="text" class="form-control" placeholder="Email Address" tabindex="2" />
+                                                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                            </div>
+                                            <button id="btnForgotSigninSubmit" type="button" class="btn btn-outline btn-flat">Request Reset</button>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </li>
+                                    <li class="user-body">
+                                        <div class="pull-left">
+                                            <button id="btnSignin" type="button" class="btn btn-success btn-flat" tabindex="4">Sign In</button>
+                                        </div>
+                                        <div class="pull-right">
+                                            <button id="btnRegister" type="button" class="btn btn-default btn-flat" tabindex="15">Register</button>
+                                        </div>
+                                    </li>
+                                    <li class="user-footer">
+                                        <div class="social-auth-links text-center">
+                                            <button id="btnSigninWeChat" type="button" class="btn btn-social-icon btn-weixin btn-flat" tabindex="5">
+                                                <i class="fa fa-weixin"></i>
+                                            </button>
+                                            <button id="btnSigninWeibo" type="button" class='btn btn-social-icon btn-weibo btn-flat'>
+                                                <i class='fa fa-weibo'></i>
+                                            </button>
+                                            <button id="btnSigninFacebook" type="button" class="btn btn-social-icon btn-facebook btn-flat" tabindex="6">
+                                                <i class="fa fa-facebook"></i>
+                                            </button>
+                                            <button id="btnSigninGoogle" type="button" class="btn btn-social-icon btn-google btn-flat" tabindex="7">
+                                                <i class="fa fa-google-plus"></i>
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul id="lvLoggedIn" runat="server" class="dropdown-menu">
+                                    <!-- The user image in the menu -->
+                                    <li class="user-header">
+                                        <asp:Image ID="imgNavbarProfileImage" ImageUrl="dist/img/male_placeholder.png" CssClass="img-circle" AlternateText="User Image" runat="server" />
+                                        <p>
+                                            <asp:Label ID="lblUsernameDropdown" runat="server"></asp:Label>
+                                            -
+                                            <asp:Label ID="lblTagline" runat="server"></asp:Label>
+
+                                            <small>Member since
+                                                <asp:Label ID="lblMemberSince" runat="server"></asp:Label></small>
+                                        </p>
+                                    </li>
+                                    <!-- Menu Body -->
+                                    <li class="user-body">
+                                        <div class="row">
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Followers</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Sales</a>
+                                            </div>
+                                            <div class="col-xs-4 text-center">
+                                                <a href="#">Friends</a>
+                                            </div>
+                                        </div>
+                                        <!-- /.row -->
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="https://www.kunminglive.com/manage-profile" class="btn btn-default btn-flat">Profile</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <button id="btnSignOut" type="button" class="btn btn-default btn-flat">Sign Out</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- Control Sidebar Toggle Button -->
+                            <li>
+                                <a data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            <% if (Request.IsAuthenticated) { %>
+                            <a href="https://www.kunminglive.com/manage-profile" data-toggle="tooltip" data-original-title="Manage Your Profile">
+                                <img id="imgSidebarProfileImage" src="<%:currentUser.Avatar%>" class="img-circle" alt="<%:currentUser.FullName%>" />
+                            </a>
+                            <% } else { %>
+                            <a>
+                                <img src="dist/img/profile/male_placeholder.png" class="img-circle" alt="Guest" />
+                            </a>
+                            <% } %>
+                        </div>
+                        <div class="pull-left info">
+                            <p>
+                                <% if (Request.IsAuthenticated) { %>
+                                <a href="https://www.kunminglive.com/manage-profile" data-toggle="tooltip" data-original-title="Manage Your Profile"><%:currentUser.FullName%></a>
+                                <% } else { %>
+                                <a>Guest</a>
+                                <% } %>
+                            </p>
+                            <!-- Status -->
+
+                            <!-- Online Menu -->
+                            <div class="dropdown online-status-menu">
+                                <!-- Menu toggle button -->
+                                <a id="btnOnlineStatusMenu" class="dropdown-toggle" runat="server">
+                                    <i class="fa fa-circle text-success" data-toggle="tooltip" data-original-title="Open to Interactions"></i>&nbsp;Online
+                                </a>
+                                <ul class="dropdown-menu" style="background-color: #222d32;">
+                                    <li>
+                                        <a data-online-status-type="0" data-toggle="tooltip" data-placement="right" data-original-title="Open to Interactions">
+                                            <i class='fa fa-circle text-success'></i>&nbsp;Online
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-online-status-type="1" data-toggle="tooltip" data-placement="right" data-original-title="Don't Bother Me">
+                                            <i class='fa fa-circle text-yellow'></i>&nbsp;Busy
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-online-status-type="2" data-toggle="tooltip" data-placement="right" data-original-title="Appear Offline">
+                                            <i class='fa fa-circle text-danger'></i>&nbsp;Hidden
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- search form -->
+                    <div class="sidebar-form">
+                        <div class="input-group">
+                            <input id="txtSearch" type="text" class="form-control" placeholder="Search...">
+                            <span class="input-group-btn">
+                                <button type="button" id="btnSearch" class="btn btn-flat">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- /.search form -->
+
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <li class="header">Navigation</li>
+                        <li id="tabControlTower" runat="server"><a href="https://www.kunminglive.com/"><i class="fa fa-area-chart"></i><span>Control Tower</span></a></li>
+                        <li id="tabBlog" runat="server"><a href="https://www.kunminglive.com/blog-articles"><i class="fa fa-file-text"></i><span>Blog / Articles</span></a></li>
+                        <li id="tabEventsCalendar" runat="server"><a href="https://www.kunminglive.com/events-calendar"><i class="fa fa-calendar"></i><span>Events Calendar</span></a></li>
+                        <li id="tabForum" runat="server" class="treeview">
+                            <a><i class="fa fa-comments"></i><span>Forum / Q & A</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li id="tabForumList" runat="server" visible="false"><a href="messageboard.aspx">Forum List</a></li>
+                                <li id="tabGeneralDiscussion" runat="server"><a href="messageboard.aspx?g=topics&f=3">General Discussion</a></li>
+                                <li id="tabKunmingLivnig" runat="server"><a href="messageboard.aspx?g=topics&f=4">Kunming Living</a></li>
+                                <li id="tabTravelTourism" runat="server"><a href="messageboard.aspx?g=topics&f=5">Travel / Tourism</a></li>
+                                <li id="tabGroupMeetups" runat="server"><a href="messageboard.aspx?g=topics&f=6">Group Meetups</a></li>
+                            </ul>
+                        </li>
+                        <li id="tabCorner" runat="server"><a href="https://www.kunminglive.com/language-exchange"><i class="fa fa-language"></i><span>Chinese / English Corner</span></a></li>
+                        <li id="tabBusinesses" runat="server" class="treeview">
+                            <a><i class="fa fa-building"></i><span>Things to Do</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li id="tabBusinessesAll" runat="server"><a href="https://www.kunminglive.com/things-to-do/all">View All</a></li>
+                                <li id="tabRestaurants" runat="server"><a href="https://www.kunminglive.com/things-to-do/restaurants">Restaurants</a></li>
+                                <li id="tabShopping" runat="server"><a href="https://www.kunminglive.com/things-to-do/shopping">Shopping</a></li>
+                                <li id="tabServices" runat="server"><a href="https://www.kunminglive.com/things-to-do/services">Services</a></li>
+                                <li id="tabEntertainment" runat="server"><a href="https://www.kunminglive.com/things-to-do/entertainment">Entertainment</a></li>
+                            </ul>
+                        </li>
+                        <li id="tabTips" runat="server"><a href="https://www.kunminglive.com/tips"><i class="fa fa-info-circle"></i><span>Tips & Tricks</span></a></li>
+                        <li id="tabResources" runat="server" visible="false"><a href="resources.aspx"><i class="fa fa-plane"></i><span>Traveler Resources</span></a></li>
+                        <li id="tabClassifieds" runat="server" class="treeview">
+                            <a><i class="fa fa-newspaper-o"></i><span>Classifieds</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li id="tabClassifiedsAll" runat="server"><a href="https://www.kunminglive.com/classifieds/all">View All</a></li>
+                                <li id="tabMarketplace" runat="server"><a href="https://www.kunminglive.com/classifieds/marketplace">Marketplace</a></li>
+                                <li id="tabEmployment" runat="server"><a href="https://www.kunminglive.com/classifieds/employment">Employment</a></li>
+                                <li id="tabRentals" runat="server"><a href="https://www.kunminglive.com/classifieds/housing">Housing</a></li>
+                            </ul>
+                        </li>
+                        <li id="tabWeather" runat="server"><a href="https://www.kunminglive.com/weather-trends"><i class="fa fa-sun-o"></i><span>Weather Trends</span></a></li>
+                        <li id="tabAdoption" runat="server" visible="false"><a href="adoption.aspx"><i class="fa fa-paw"></i><span>Pet Adoption</span></a></li>
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div id="contentWrapper" class="content-wrapper" style="position: relative;" runat="server">
+                <div class="alert alert-warning">
+                    <h4><i class="icon fa fa-warning"></i>Kunming LIVE! Under Construction</h4>
+                    Welcome to Kunming LIVE! We are currently under construction. Feel free to poke around. Any errors that you can trigger will be very helpful in development. We expect to go live by June 1st 2018. Technical development is largely complete.
+                    We are rounding off a few key features, cleaning up some bugs, and filling the site with content. If you have any questions or comments, feel free to contact us at <a href="mailto:admin@kunminglive.com">admin@kunminglive.com</a>. Thank you!
+                </div>
+                <asp:ContentPlaceHolder ID="body" runat="server">
+                </asp:ContentPlaceHolder>
+                <div class="clearfix"></div>
+                <div class="img-circle scroll-to-top"><i class="fa fa-arrow-circle-up fa-4x"></i></div>
+            </div>
+            <!-- /.content-wrapper -->
+
+            <kl:userinfo id="klUserInfo" runat="server" />
+
+            <!-- Main Footer -->
+            <footer class="main-footer">
+                <!-- To the right -->
+                <div class="pull-right hidden-xs">
+                    The Next Big Thing in China!
+   
+                </div>
+                <!-- Default to the left -->
+                <strong>&copy; 2018 <a href="http://hunterwebapps.com" target="_blank">HunterWebApps</a>.</strong> All rights reserved.
+ 
+            </footer>
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Create the tabs -->
+                <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                    <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                    <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!-- Home tab content -->
+                    <div class="tab-pane active" id="control-sidebar-home-tab">
+                        <h3 class="control-sidebar-heading">Friends List</h3>
+                        <ul id="pnlFriendsList" class="control-sidebar-menu" runat="server"></ul>
+                        <div id="pnlFriendsListConversation" class="box box-input box-solid" style="position:absolute;display:none;">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="txtFriendsConversationTitle" class="control-label text-black">Conversation Title</label>
+                                    <input id="txtFriendsConversationTitle" class="form-control" placeholder="Title..." />
+                                </div>
+                                <div class="form-group">
+                                    <label for="txtFriendsConversationMessage" class="control-label text-black">Message</label>
+                                    <input id="txtFriendsConversationMessage" class="form-control" placeholder="Message..." />
+                                </div>
+                            </div>
+                            <div class="box-footer with-border">
+                                <button id="btnFriendsConversationSubmit" type="button" class="btn btn-sm btn-success pull-right">Create</button>
+                                <button id="btnFriendsConversationCancel" type="button" class="btn btn-sm btn-default">Cancel</button>
+                            </div>
+                        </div>
+                        <div id="pnlFriendsListNote" class="box box-input box-solid" style="position:absolute;display:none;">
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label for="txtFriendsNote" class="control-label text-black">Notes</label>
+                                    <textarea id="txtFriendsNote" class="form-control" rows="3" placeholder="Notes..."></textarea>
+                                </div>
+                            </div>
+                            <div class="box-footer with-border">
+                                <button id="btnFriendsNoteSubmit" type="button" class="btn btn-sm btn-success pull-right">Add Note</button>
+                                <button id="btnFriendsNoteCancel" type="button" class="btn btn-sm btn-default">Cancel</button>
+                            </div>
+                        </div>
+                        <!-- /.control-sidebar-menu -->
+
+                        <h3 class="control-sidebar-heading">Legal</h3>
+                        <ul class="control-sidebar-menu">
+                            <li id="tabPrivacyPolicy" runat="server">
+                                <a href="https://www.kunminglive.com/privacy-policy">
+                                    <i class="fa fa-user-secret"></i>
+                                    <span>Privacy Policy</span>
+                                </a>
+                            </li>
+                            <li id="tabToS" runat="server">
+                                <a href="https://www.kunminglive.com/terms-of-service">
+                                    <i class="fa fa-asterisk"></i>
+                                    <span>Terms of Service</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /.control-sidebar-menu -->
+
+                    </div>
+                    <!-- /.tab-pane -->
+                    <!-- Stats tab content -->
+                    <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+                    <!-- /.tab-pane -->
+                    <!-- Settings tab content -->
+                    <div class="tab-pane" id="control-sidebar-settings-tab">
+                        <div id="phAdminFunctions" class="text-center" runat="server" visible="false">
+                            <h3 class="control-sidebar-heading">Admin Functions</h3>
+                            <div class="btn-group-vertical">
+                                <button type="button" id="btnNewBlogPost" class="btn btn-default btn-sm">New Blog Post</button>
+                                <button type="button" id="btnNewTip" class="btn btn-default btn-sm">New Tip/Trick</button>
+                                <button type="button" id="btnNewPage" class="btn btn-default btn-sm">New Page</button>
+                                <a id="btnForumAdmin" href="messageboard.aspx?g=admin_admin" class="btn btn-default btn-sm">Forum Admin</a>
+                                <a id="btnForumModeration" href="messageboard.aspx?g=moderate_index" class="btn btn-default btn-sm">Forum Moderation</a>
+                                <button type="button" id="btnApproveEvents" class="btn btn-default btn-sm">Approve Events</button>
+                            </div>
+                            <div class="text-left" style="margin-top:10px;">
+                                <label class="control-sidebar-subheading">Add Admin</label>
+                                <input id="txtAddAdmin" type="text" class="text-black" style="width:50px;" data-toggle="tooltip" data-placement="left" trigger="manual" title="Administrator Exists" />
+                            </div>
+                        </div>
+                        
+                        <h3 class="control-sidebar-heading">General Settings</h3>
+                        <div class="form-group icheck">
+                            <label class="control-sidebar-subheading clickable">
+                                Turn Off Notifications
+                                <input id="chkDefaultNotifications" type="checkbox" class="pull-right" runat="server" />
+                            </label>
+                            <p>You will not receive notifications of new chat messages and subscribed lists for things to do.</p>
+                        </div>
+                        <div class="form-group icheck">
+                            <label class="control-sidebar-subheading clickable">
+                                Share Contact with Friends
+                                <input id="chkShareContact" type="checkbox" class="pull-right" runat="server" />
+                            </label>
+                            <p>Your WeChat ID and Email Address is hidden by default. You can make this information visible to approved Friends.</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Measurements
+                                <select id="ddlDefaultMeasurement" class="text-black pull-right input-sm" style="margin-top:-5px;">
+                                    <option value="0">Metric</option>
+                                    <option value="1">Imperial</option>
+                                </select>
+                            </label>
+                            <p>Show Weather Forecasting and Things to Do/Events routing in either Metric or Imperial.</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Delete Chat History
+                                <i class="fa fa-2x fa-trash-o text-red clickable pull-right" style="margin-top:-4px;"></i>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+            </aside>
+            <!-- /.control-sidebar -->
+            <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+            <div class="control-sidebar-bg"></div>
+
+            <kl:adminmodals id="klAdminModals" visible="false" runat="server" />
+
+            <asp:HiddenField ID="hiddenBoxStates" runat="server" />
+            <asp:HiddenField ID="hiddenTodoItems" runat="server" />
+            <asp:HiddenField ID="hiddenUserInfo" runat="server" />
+            <asp:HiddenField ID="hiddenPageInfo" runat="server" />
+        </form>
+    </div>
+
+    <!-- Conversations Container -->
+    <div id="conversationsContainer" runat="server"></div>
+    <div class="modal fade in" id="modalCreateConversation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">New Conversation</h4>
+                </div>
+                <div class="modal-body no-padding">
+                    <div class="content" style="padding-top:15px;">
+                        <div class="row">
+                            <div id="lblCreateConversationError" class="control-label text-yellow text-bold collapse"><i class="fa fa-times-circle-o"></i>&nbsp;<span id="lblCreateConversationErrorText"></span></div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label for="txtCreateConversationParticipants" class="control-label">Recipients</label>
+                                    <input id="txtCreateConversationParticipants" type="text" />
+                                </div>
+                                <div class="col-sm-5">
+                                    <label for="txtCreateConversationTitle" class="control-label">Chat Title</label>
+                                    <input id="txtCreateConversationTitle" type="text" class="form-control" placeholder="Title..." />
+                                </div>
+                                <div class="col-sm-7">
+                                    <label for="txtCreateConversationMessage" class="control-label">Message</label>
+                                    <input id="txtCreateConversationMessage" class="form-control" placeholder="Enter your message..." />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnCreateConversation" type="button" class="btn btn-success pull-right" data-dismiss="modal">Create</button>
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <!-- Slide-Down Warning -->
+    <div class="top-bar-warning bg-yellow">
+        <div class="clickable"><i class="fa fa-times fa-2x"></i></div>
+        <h4></h4>
+    </div>
+    <!-- Slide-Down Success -->
+    <div class="top-bar-success bg-success">
+        <div class="clickable"><i class="fa fa-times fa-2x"></i></div>
+        <h4></h4>
+    </div>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay">
+        <i class="fa fa-refresh fa-spin fa-3x"></i>
+    </div>
+    <!-- Slideshow Overlay -->
+    <div class="slideshow-overlay" style="align-items: center;">
+        <div class="close-slideshow"><i class="fa fa-times fa-3x"></i></div>
+        <div id="showImagesCarousel" class="carousel slide" data-ride="carousel" data-interval="false" style="width: 100%;">
+            <ol class="carousel-indicators"></ol>
+            <div class="carousel-inner"></div>
+            <a class="left carousel-control" href="#showImagesCarousel" role="button" data-slide="prev">
+                <span class="fa fa-angle-left" aria-hidden="true"></span>
+            </a>
+            <a class="right carousel-control" href="#showImagesCarousel" role="button" data-slide="next">
+                <span class="fa fa-angle-right" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Search Results Modal -->
+    <div class="modal fade in" id="modalSearchResults">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Search Results</h4>
+                </div>
+                <div class="modal-body no-padding">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <!-- Warning Dialog -->
+    <div class="modal modal-warning fade in" id="modal-warning">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">Warning</h4>
+                </div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- Confirm Dialog -->
+    <div id="confirmWarning" class="modal modal-warning fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">CONFIRM ACTION</h4>
+                </div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
+                    <button id="btnConfirmWarning" type="button" class="btn btn-success" data-dismiss="modal">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bundle -->
+    <%--<script src="/dist/js/bundle.js"></script>--%>
+    <!-- jQuery UI -->
+    <script src="https://www.kunminglive.com/bower_components/jquery-ui/jquery-ui-custom.min.js"></script>
+    <!-- Touch Punch -->
+    <script src="https://www.kunminglive.com/dist/js/touchpunch.min.js"></script>
+    <!-- Touch Swipe -->
+    <%--<script src="dist/js/touchswipe.min.js"></script>--%>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <%--<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>--%>
+    <!-- AdminLTE App -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.4.0/js/adminlte.min.js"></script>
+    <%--<script src="dist/js/adminlte.min.js"></script>--%>
+    <!-- Input Tags -->
+    <script src="https://www.kunminglive.com/dist/js/tagify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
+    <!-- iCheck -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
+    <%--<script src="plugins/iCheck/icheck.min.js"></script>--%>
+    <!-- Date Picker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    <%--<script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>--%>
+    <!-- WYSIHTML5 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wysihtml5/0.3.0/wysihtml5.min.js"></script>
+    <script src="https://www.kunminglive.com/plugins/bootstrap-wysihtml5/advanced.min.js"></script>
+    <%--<script src="plugins/bootstrap-wysihtml5/advanced-wysihtml5.bundle.min.js"></script>--%>
+    <!-- Arrive -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/arrive/2.4.1/arrive.min.js"></script>
+    <%--<script src="dist/js/arrive.min.js"></script>--%>
+    <!-- Page Script -->
+    <script src="https://www.kunminglive.com/dist/js/admin.js"></script>
+    <!-- MomentJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.min.js"></script>
+    <%--<script src="bower_components/moment/min/moment.min.js"></script>--%>
+    <!-- Full Calendar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <%--<script src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>--%>
+
+    <asp:ContentPlaceHolder ID="foot" runat="server">
+    </asp:ContentPlaceHolder>
+</body>
+</html>
